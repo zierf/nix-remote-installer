@@ -12,13 +12,21 @@
     ./disk-config.nix
   ];
 
-  boot.loader.grub = {
-    # no need to set devices, disko will add all devices that have a EF02 partition to the list already
-    devices = [
-      "/dev/vda"
-    ];
-    efiSupport = true;
-    efiInstallAsRemovable = true;
+  boot.loader = {
+    # grub = {
+    #   # no need to set devices, disko will add all devices that have a EF02 partition to the list already
+    #   # devices = [
+    #   #   "/dev/vda"
+    #   # ];
+    #   efiSupport = true;
+    #   efiInstallAsRemovable = true;
+    # };
+
+    systemd-boot = {
+      enable = true;
+      memtest86.enable = true;
+    };
+    efi.canTouchEfiVariables = true;
   };
 
   services.openssh.enable = true;
